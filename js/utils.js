@@ -1,0 +1,16 @@
+window.RSA = window.RSA || {};
+RSA.uid=()=>crypto.randomUUID?crypto.randomUUID():'id-'+Date.now()+'-'+Math.random().toString(16).slice(2);
+RSA.today=()=>new Date().toISOString().slice(0,10);
+RSA.brDate=(d)=>d?new Date(d+'T00:00:00').toLocaleDateString('pt-BR'):'Não definida';
+RSA.nowBR=()=>new Date().toLocaleString('pt-BR');
+RSA.escape=(s='')=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+RSA.toast=(msg)=>{const el=document.createElement('div');el.className='toast';el.textContent=msg;toastHost.appendChild(el);setTimeout(()=>el.remove(),3200)};
+RSA.confirm=(msg)=>Promise.resolve(window.confirm(msg));
+RSA.priorityClass=p=>({'Baixa':'b-low','Média':'b-med','Alta':'b-high','Crítica':'b-critical'}[p]||'b-med');
+RSA.statusClass=s=>({'Pendente':'s-yellow','Em análise':'s-blue','Aguardando execução':'s-yellow','Em execução':'s-purple','Concluída':'s-green','Cancelada':'s-red'}[s]||'s-blue');
+RSA.openModal=(html)=>{modalRoot.innerHTML=`<div class="modal-backdrop"><div class="modal-card">${html}</div></div>`};
+RSA.closeModal=()=>{modalRoot.innerHTML=''};
+RSA.download=(name,data,type='application/json')=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data],{type}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)};
+RSA.fileToDataURL=file=>new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsDataURL(file)});
+RSA.STATUSES=['Pendente','Em análise','Aguardando execução','Em execução','Concluída','Cancelada'];
+RSA.PRIORITIES=['Baixa','Média','Alta','Crítica'];

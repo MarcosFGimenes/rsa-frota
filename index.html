@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RSA Frota | Pendências de Máquinas</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-slate-100 text-slate-900">
+  <div id="toastHost" class="toast-host"></div>
+  <div class="app-shell">
+    <aside id="sidebar" class="sidebar">
+      <div class="brand"><div class="brand-icon">🚛</div><div><strong>RSA Frota</strong><span>Controle offline</span></div></div>
+      <nav class="nav">
+        <button class="nav-link active" data-section="dashboard">📊 Dashboard</button>
+        <button class="nav-link" data-section="machines">🚜 Máquinas</button>
+        <button class="nav-link" data-section="pendencias">🛠️ Pendências</button>
+        <button class="nav-link" data-section="reports">📈 Relatórios</button>
+        <button class="nav-link" data-section="backup">💾 Backup / Dados</button>
+      </nav>
+      <div class="sidebar-note">Dados salvos no IndexedDB deste navegador. Não usa servidor.</div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button id="menuToggle" class="btn btn-ghost md-hidden">☰</button>
+        <div><h1 id="pageTitle">Dashboard</h1><p id="pageSubtitle">Visão geral das máquinas e serviços pendentes</p></div>
+        <button id="summaryBtn" class="btn btn-primary">📋 Copiar resumo geral</button>
+      </header>
+
+      <section id="dashboard" class="section active">
+        <div id="statsGrid" class="stats-grid"></div>
+        <div class="panel">
+          <div class="panel-head"><div><h2>Máquinas</h2><p>Pesquise e adicione pendências com poucos cliques.</p></div><button id="dashAddMachine" class="btn btn-secondary">+ Nova máquina</button></div>
+          <div class="filters"><input id="dashSearch" class="input" placeholder="Pesquisar por placa, modelo ou gestor"><select id="dashStatusFilter" class="input"><option value="all">Todas</option><option value="with-open">Com pendências</option><option value="Em execução">Em andamento</option><option value="Aguardando execução">Aguardando</option><option value="Concluída">Concluídas</option></select></div>
+          <div id="machineCards" class="card-grid"></div>
+        </div>
+      </section>
+
+      <section id="machines" class="section">
+        <div class="panel"><div class="panel-head"><div><h2>Cadastro de máquinas</h2><p>Adicione, edite, visualize e exclua máquinas.</p></div><button id="addMachineBtn" class="btn btn-primary">+ Adicionar máquina</button></div><div class="filters"><input id="machineSearch" class="input" placeholder="Pesquisar máquina"><select id="machineFilter" class="input"><option value="all">Todas</option><option value="with-open">Com pendências ativas</option><option value="without">Sem pendências</option></select></div><div id="machinesList" class="table-wrap"></div></div>
+      </section>
+
+      <section id="pendencias" class="section">
+        <div class="panel"><div class="panel-head"><div><h2>Pendências</h2><p>Controle todos os problemas relatados em checklist.</p></div><button id="addPendenciaBtn" class="btn btn-primary">+ Nova pendência</button></div><div class="filters four"><input id="pendSearch" class="input" placeholder="Pesquisar pendência, placa ou O.S."><select id="pendStatusFilter" class="input"><option value="all">Todas as situações</option></select><select id="pendPriorityFilter" class="input"><option value="all">Todas prioridades</option></select><select id="pendMachineFilter" class="input"><option value="all">Todas máquinas</option></select></div><div id="pendenciasTable" class="table-wrap"></div></div>
+      </section>
+
+      <section id="reports" class="section"><div class="panel"><div class="panel-head"><div><h2>Relatórios</h2><p>Indicadores e gráficos simples gerados localmente.</p></div></div><div id="reportsContent"></div></div></section>
+
+      <section id="backup" class="section"><div class="panel"><div class="panel-head"><div><h2>Backup e dados</h2><p>Exporte, importe, restaure ou limpe todos os dados.</p></div></div><div class="backup-grid"><button id="exportBtn" class="backup-card">⬇️<strong>Exportar backup</strong><span>Baixa um JSON completo.</span></button><label class="backup-card">⬆️<strong>Importar backup</strong><span>Restaura um JSON exportado.</span><input id="importFile" type="file" accept="application/json" hidden></label><button id="seedBtn" class="backup-card">✨<strong>Carregar exemplos</strong><span>Dados opcionais para demonstração.</span></button><button id="clearBtn" class="backup-card danger">🗑️<strong>Limpar todos os dados</strong><span>Exige confirmação dupla.</span></button></div><pre id="backupInfo" class="codebox"></pre></div></section>
+    </main>
+  </div>
+
+  <div id="modalRoot"></div>
+  <script src="js/utils.js"></script><script src="js/db.js"></script><script src="js/dashboard.js"></script><script src="js/machines.js"></script><script src="js/pendencias.js"></script><script src="js/reports.js"></script><script src="js/backup.js"></script><script src="js/app.js"></script>
+</body>
+</html>
